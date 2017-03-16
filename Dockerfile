@@ -36,7 +36,8 @@ RUN cd /opt && \
 RUN cd /usr/local && \
     wget https://storage.googleapis.com/golang/go1.8.linux-amd64.tar.gz && \
     tar zxvf go1.8.linux-amd64.tar.gz && \
-    rm go1.8.linux-amd64.tar.gz
+    rm go1.8.linux-amd64.tar.gz && \
+    echo "export PATH=/usr/local/go/bin:$PATH" >/etc/profile.d/go.sh
 
 RUN mkdir /workspace
 
