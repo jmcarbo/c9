@@ -31,6 +31,12 @@ RUN cd /opt && \
     wget https://github.com/github/hub/releases/download/v2.2.9/hub-linux-amd64-2.2.9.tgz && \
     tar -zxvf hub-linux-amd64-2.2.9.tgz && \
     ln -s /opt/hub-linux-amd64-2.2.9/bin/hub /usr/local/bin/hub
+    
+# add golang
+RUN cd /usr/local && \
+    wget https://storage.googleapis.com/golang/go1.8.linux-amd64.tar.gz && \
+    tar zxvf go1.8.linux-amd64.tar.gz && \
+    rm go1.8.linux-amd64.tar.gz
 
 RUN mkdir /workspace
 
