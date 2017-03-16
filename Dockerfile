@@ -17,7 +17,7 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 # install some extra dev goodies like
 # * apache support for older versions of php in apache via phpbrew
 # * pip for installing CodeIntel in c9
-RUN apt install -y apache2-dev apt python-setuptools
+RUN apt install -y apache2-dev apt python-setuptools libtool ruby
 RUN easy_install pip
 RUN pip install -U pip
 RUN pip install -U virtualenv && \
