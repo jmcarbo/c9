@@ -8,6 +8,14 @@ RUN apt update && apt install -y build-essential gcc git make python2.7
 #ENV NVM_DIR=/root/.nvm
 #RUN . /root/.nvm/nvm.sh && nvm install v4.6.0 && nvm use stable
 
+RUN apt install -y systemd locales
+# Set the locale
+RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
+    locale-gen
+ENV LANG en_US.UTF-8  
+ENV LANGUAGE en_US:en  
+ENV LC_ALL en_US.UTF-8
+
 # get c9 and checkout temp fix for missing plugin
 RUN git clone https://github.com/c9/core.git /c9 && \
     cd /c9 && \
@@ -25,7 +33,8 @@ RUN pip install -U virtualenv && \
     virtualenv --python=python2 $HOME/.c9/python2 && \
     source $HOME/.c9/python2/bin/activate
 RUN apt update && apt install -y python-dev
-RUN mkdir /tmp/codeintel && pip install --download /tmp/codeintel codeintel==0.9.3
+#RUN mkdir /tmp/codeintel && pip install --download /tmp/codeintel codeintel==0.9.3
+RUN pip install codeintel
 
 # add hub 2.2.9
 RUN cd /opt && \
@@ -35,9 +44,9 @@ RUN cd /opt && \
     
 # add golang
 RUN cd /usr/local && \
-    wget https://storage.googleapis.com/golang/go1.8.linux-amd64.tar.gz && \
-    tar zxvf go1.8.linux-amd64.tar.gz && \
-    rm go1.8.linux-amd64.tar.gz && \
+    wget https://storage.googleapis.com/golang/go1.12.5.linux-amd64.tar.gz && \
+    tar zxvf go1.12.5.linux-amd64.tar.gz && \
+    rm go1.12.5.linux-amd64.tar.gz && \
     echo "export PATH=/usr/local/go/bin:$PATH" >/etc/profile.d/go.sh
 
 RUN mkdir /workspace
